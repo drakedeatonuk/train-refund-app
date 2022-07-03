@@ -1,0 +1,64 @@
+<ion-header class="shadowless-header">
+  <ion-toolbar mode="md" color="l">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="tw-font-medium">{{ claim.journeyStartStation }}</span>
+      to
+      <span class="tw-font-medium">{{ claim.journeyEndStation }}</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="tw-mb-1">
+      <h3 class="tw-w-full">Claim Status</h3>
+      <ion-chip color="tertiary" class="tw-m-0 tw-mb-3">
+        <ion-icon size="small" name="help-circle-outline"></ion-icon>
+        <ion-label class="tw-text-xs">{{ capitalize(claim.claimStatus) }}</ion-label>
+      </ion-chip>
+    </ion-row>
+
+    <ion-row class="tw-mb-1">
+      <h3 class="tw-w-full">Train Delay</h3>
+      <p>{{ claim.trainDelay }}+ minutes</p>
+    </ion-row>
+
+    <ion-row class="tw-mb-1">
+      <h3 class="tw-w-full">Ticket Reference Number</h3>
+      <p>{{ claim.ticketRef }}</p>
+    </ion-row>
+
+    <ion-row class="tw-mb-1">
+      <h3 class="tw-w-full">Journey Date</h3>
+      <p>{{ this.claimSvc.simpleDate(claim.journeyStartDateTime) }}</p>
+    </ion-row>
+
+    <ion-row class="tw-mb-1">
+      <h3 class="tw-w-full">Train Times</h3>
+      <p>{{ this.claimSvc.simpleTime(claim.journeyStartDateTime) }} - {{ this.claimSvc.simpleTime(claim.journeyEndDateTime) }}</p>
+    </ion-row>
+
+    <ion-row class="tw-mb-1">
+      <h3 class="tw-w-full">Claim Submission Date</h3>
+      <p>{{ this.claimSvc.simpleDate(claim.dateCreated) }}</p>
+    </ion-row>
+
+    <ion-row class="tw-mb-1">
+      <h3 class="tw-w-full">Ticket Picture</h3>
+      <div class="tw-mb-4">
+        <ion-img [src]="claim.photo.firebaseUrl === '' || claim.photo.firebaseUrl === null ? claim.photo.nativeUrl : claim.photo.firebaseUrl"></ion-img>
+      </div>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer class="tall-footer">
+  <ion-toolbar color="l" class="tw-flex tw-align-center">
+    <ion-button [routerLink]="['/new-claim']" color="p" size="large" class="tw-w-full tw-rounded-lg tw-mt-4 tw-mb-4 side-padding">
+      Create a Claim
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

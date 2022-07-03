@@ -1,0 +1,351 @@
+<ion-header class="shadowless-header">
+  <ion-toolbar mode="md" color="l">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title> New Claim </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <form [formGroup]="newClaimForm" class="tw-h-full">
+      <ion-list id="journeyDetails">
+        <ion-item slot="header" lines="none" class="tw-mb-0">
+          <ion-icon size="large" name="train-outline" class="tw-mr-2" color="p"></ion-icon>
+          <h2 class="tw-mb-0">Journey Details</h2>
+        </ion-item>
+        <ion-list slot="content" lines="none">
+          <ion-item class="tw-w-full" id="ticketType">
+            <ion-radio-group formControlName="ticketType" class="tw-w-full">
+              <ion-list-header class="tw-p-0">
+                <h3 class="tw-mb-1">What type of ticket did you purchase?</h3>
+              </ion-list-header>
+              <ion-list>
+                <ion-item>
+                  <ion-label>E-Ticket</ion-label>
+                  <ion-radio slot="start" value="eTicket" color="d" mode="md"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Paper Ticket</ion-label>
+                  <ion-radio slot="start" value="paperTicket" color="d" mode="md"></ion-radio>
+                </ion-item>
+              </ion-list>
+            </ion-radio-group>
+          </ion-item>
+
+          <ion-item class="tw-w-full" id="claimType">
+            <ion-radio-group formControlName="claimType" class="tw-w-full">
+              <ion-list-header class="tw-p-0">
+                <h3 class="tw-mb-1">Was your train delayed or cancelled?</h3>
+              </ion-list-header>
+              <ion-list>
+                <ion-item>
+                  <ion-label>Delayed</ion-label>
+                  <ion-radio slot="start" value="delayedTrain" color="d" mode="md"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Cancelled</ion-label>
+                  <ion-radio slot="start" value="cancelledTrain" color="d" mode="md"></ion-radio>
+                </ion-item>
+              </ion-list>
+            </ion-radio-group>
+          </ion-item>
+
+          <ion-item class="tw-w-full" id="purchaseType" [style.display]="displayedQuestions.purchaseType ? 'block' : 'none'">
+            <ion-radio-group formControlName="purchaseType" class="tw-w-full">
+              <ion-list-header class="tw-p-0">
+                <h3 class="tw-mb-1">Where did you buy your ticket?</h3>
+                <app-tooltip
+                  message="Where your ticket was purchased can impact if we're able to pursue a refund on your behalf"
+                  class="tw-mb-auto"
+                ></app-tooltip>
+              </ion-list-header>
+              <ion-list>
+                <ion-item>
+                  <ion-label>From a train station</ion-label>
+                  <ion-radio slot="start" value="fromStation" color="d" mode="md"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>From a train company website</ion-label>
+                  <ion-radio slot="start" value="fromTrainWebsite" color="d" mode="md"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>From a third-party company (i.e. Trainline, Trainpal...)</ion-label>
+                  <ion-radio slot="start" value="fromThirdParty" color="d" mode="md"></ion-radio>
+                </ion-item>
+              </ion-list>
+              <div *ngIf="purchaseType?.dirty && purchaseType?.invalid" class="tw-m-0">
+                <p class="tw-ml-5 text-r tw-text-xs">
+                  Sorry, but if you bought your ticket from a third-party website, only they can give you a refund.
+                </p>
+              </div>
+            </ion-radio-group>
+          </ion-item>
+
+          <ion-item class="tw-w-full" id="trainDelay" [style.display]="displayedQuestions.trainDelay ? 'block' : 'none'">
+            <ion-radio-group formControlName="trainDelay" class="tw-w-full">
+              <ion-list-header class="tw-p-0">
+                <h3 class="tw-mb-1">How late was your train?</h3>
+              </ion-list-header>
+              <ion-list>
+                <ion-item>
+                  <ion-label>15+ min</ion-label>
+                  <ion-radio slot="start" value="15" color="d" mode="md"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>30+ min</ion-label>
+                  <ion-radio slot="start" value="30" color="d" mode="md"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>60+ min</ion-label>
+                  <ion-radio slot="start" value="60" color="d" mode="md"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>2+ hrs</ion-label>
+                  <ion-radio slot="start" value="120" color="d" mode="md"></ion-radio>
+                </ion-item>
+              </ion-list>
+            </ion-radio-group>
+          </ion-item>
+
+          <ion-item class="tw-w-full tw-flex-row" id="journeyStations">
+            <ion-list class="tw-w-full">
+              <ion-list-header class="tw-p-0 tw-w-full">
+                <h3 [ngClass]="
+                  (newClaimForm?.errors?.['isdifferentstations']) ||
+                  (journeyStartStation?.dirty && journeyStartStation?.invalid) ||
+                  (journeyEndStation?.dirty && journeyEndStation?.invalid)
+                  ? 'tw-m-0' : 'tw-m-3'">
+                  Where did your train journey start & end?
+                </h3>
+              </ion-list-header>
+              <div *ngIf="
+                newClaimForm?.errors?.['isdifferentstations'] ||
+                (journeyStartStation?.dirty && journeyStartStation?.invalid) ||
+                (journeyEndStation?.dirty && journeyEndStation?.invalid)"
+                class="tw-m-0 error-messages"
+              >
+                <div *ngIf="journeyStartStation?.errors?.['required']" class="error-message">
+                  <p class="text-r tw-text-xs">Both a starting & ending station is required.</p>
+                </div>
+                <div *ngIf="newClaimForm?.errors?.['isdifferentstations']" class="error-message">
+                  <p class="text-r tw-text-xs">Your journey starting station & ending station cannot be the same station.</p>
+                </div>
+                <div *ngIf="journeyStartStation?.errors?.['pattern'] || journeyEndStation?.errors?.['pattern']" class="error-message">
+                  <p class="text-r tw-text-xs">Station names may only contain letters and some special characters.</p>
+                </div>
+                <div *ngIf="journeyStartStation?.errors?.['isstation'] || journeyEndStation?.errors?.['isstation']" class="error-message">
+                  <p class="text-r tw-text-xs">Both stations must be a valid UK train stations. Please choose station names from the dropdown selections.</p>
+                </div>
+                <div *ngIf="journeyStartStation?.errors?.['maxlength'] || journeyEndStation?.errors?.['maxlength']" class="error-message">
+                  <p class="text-r tw-text-xs">Station names must be less than 50 characters long.</p>
+                </div>
+              </div>
+              <div class="tw-pl-1 tw-pr-1">
+                <mat-form-field appearance="fill" class="tw-w-full">
+                  <mat-label>Starting Station</mat-label>
+                  <input
+                    type="text"
+                    placeholder="Select a station"
+                    matInput
+                    formControlName="journeyStartStation"
+                    [matAutocomplete]="auto"
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let startingStation of filteredStartingStations | async" [value]="startingStation">
+                      {{ startingStation }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+              <div class="tw-pl-1 tw-pr-1">
+                <mat-form-field appearance="fill" class="tw-w-full">
+                  <mat-label>Ending Station</mat-label>
+                  <input
+                    type="text"
+                    placeholder="Select a station"
+                    matInput
+                    formControlName="journeyEndStation"
+                    [matAutocomplete]="auto2"
+                  />
+                  <mat-autocomplete #auto2="matAutocomplete">
+                    <mat-option *ngFor="let endingStation of filteredEndingStations | async" [value]="endingStation">
+                      {{ endingStation }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+            </ion-list>
+          </ion-item>
+
+          <ion-item class="tw-w-full tw-flex-row tw-mb-4" id="journeyDateTimes">
+            <ion-list class="tw-w-full">
+              <ion-list-header class="tw-p-0 tw-w-full">
+                <h3 class="tw-mb-3">When was your train journey?</h3>
+              </ion-list-header>
+              <div class="tw-pl-1 tw-pr-1 tw-mb-2">
+                <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+                  <ion-label position="stacked">Journey Times</ion-label>
+                  <ion-input
+                    id="date-time-picker-modal"
+                    placeholder="Enter Your Schedule"
+                    [value]="displayableJourneyDateTimes"
+                    type="text"
+                    readonly="true"
+                  >
+                  </ion-input>
+                  <ion-icon name="calendar" color="p" slot="start" class="tw-self-center input-icon-margin"></ion-icon>
+                </ion-item>
+                <ion-modal trigger="date-time-picker-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+                  <ng-template>
+                    <app-date-time-picker-modal
+                      (addDateTimes)="addDateTimes($event)"
+                      [journeyStartDateTime]="journeyStartDateTime.value"
+                      [journeyEndDateTime]="journeyEndDateTime.value"
+                      class="tw-h-full datepicker-modal"
+                    ></app-date-time-picker-modal>
+                  </ng-template>
+                </ion-modal>
+              </div>
+            </ion-list>
+          </ion-item>
+        </ion-list>
+      </ion-list>
+      <ion-item-divider color="l"></ion-item-divider>
+      <ion-list id="ticketDetails">
+        <ion-item lines="none" slot="header">
+          <ion-icon size="large" name="ticket-outline" class="tw-mr-2" color="p"></ion-icon>
+          <h2 class="tw-mb-0">Ticket Details</h2>
+        </ion-item>
+        <ion-list slot="content">
+          <ion-item lines="none" id="isReturn">
+            <ion-radio-group formControlName="isReturn" class="tw-w-full">
+              <ion-list-header class="tw-p-0">
+                <h3 class="tw-mb-1">Did you buy a single or a return ticket?</h3>
+              </ion-list-header>
+              <ion-list>
+                <ion-item lines="none">
+                  <ion-label>Single</ion-label>
+                  <ion-radio slot="start" value="false" color="d" mode="md"></ion-radio>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label>Return</ion-label>
+                  <ion-radio slot="start" value="true" color="d" mode="md"></ion-radio>
+                </ion-item>
+              </ion-list>
+            </ion-radio-group>
+          </ion-item>
+
+          <ion-item lines="none" class="tw-w-full tw-flex-row" id="ticketPrice">
+            <ion-list class="tw-w-full">
+              <ion-list-header class="tw-p-0 tw-w-full">
+                <h3 [ngClass]=" ticketPrice?.dirty && ticketPrice?.invalid ? 'tw-mb-0' : 'tw-mb-3'">How much did your ticket cost?</h3>
+              </ion-list-header>
+              <div *ngIf="ticketPrice?.dirty && ticketPrice?.invalid" class="tw-m-0 error-messages">
+                <div *ngIf="ticketPrice?.errors?.['required']" class="error-message">
+                  <p class="text-r tw-text-xs">Ticket price is required.</p>
+                </div>
+                <div *ngIf="ticketPrice?.errors?.['pattern']" class="error-message">
+                  <p class="text-r tw-text-xs">Ticket price must be written in valid GBP format.</p>
+                </div>
+                <div *ngIf="ticketPrice?.errors?.['maxlength']" class="error-message">
+                  <p class="text-r tw-text-xs">Ticket price cannot be longer than 10 characters</p>
+                </div>
+              </div>
+              <div class="tw-pl-1 tw-pr-1 tw-mb-4">
+                <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+                  <ion-label position="floating">Ticket Price</ion-label>
+                  <ion-input formControlName="ticketPrice" type="text"></ion-input>
+                </ion-item>
+              </div>
+            </ion-list>
+          </ion-item>
+
+          <ion-item [style.display]="ticketType.value ? 'block' : 'none'" lines="none" class="tw-w-full tw-flex-row" id="ticketRef">
+            <ion-list class="tw-w-full">
+              <ion-list-header class="tw-p-0 tw-w-full">
+                <h3 [ngClass]="{ 'tw-mb-0': ticketType.value, 'tw-mb-3': !ticketType.value }">What is your ticket's reference number?</h3>
+              </ion-list-header>
+              <div *ngIf="ticketRef?.dirty && ticketRef?.invalid" class="tw-m-0 error-messages">
+                <div *ngIf="ticketRef?.errors?.['required']" class="error-message">
+                  <p class="text-r tw-text-xs">Your ticket reference is required.</p>
+                </div>
+                <div *ngIf="ticketRef?.errors?.['minlength'] || ticketRef?.errors?.['maxlength']" class="error-message">
+                  <p class="text-r tw-text-xs">{{
+                    ticketType.value == 'eTicket'
+                      ? 'Your e-ticket reference must be 11  digits long.'
+                      : 'Your paper ticket reference must be 8 digits long.'
+                    }}
+                  </p>
+                </div>
+              </div>
+              <ng-container *ngIf="ticketType.value">
+                <p id="ticketRefModal" class="tw-text-xs tw-p-0 tw-mb-4 tw-w-full tw-underline tw-text-blue-600">
+                  Where can I find my ticket reference number?
+                </p>
+                <ion-modal trigger="ticketRefModal">
+                  <ng-template>
+                    <app-ticket-pic-modal modalType="ticketRef" [ticketType]="ticketType.value" class="tw-h-full"></app-ticket-pic-modal>
+                  </ng-template>
+                </ion-modal>
+              </ng-container>
+              <div class="tw-pl-1 tw-pr-1 tw-mb-4">
+                <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+                  <ion-label position="floating">Ticket Reference</ion-label>
+                  <ion-input formControlName="ticketRef" type="text"></ion-input>
+                </ion-item>
+              </div>
+            </ion-list>
+          </ion-item>
+
+          <ion-item lines="none" class="tw-w-full tw-flex-row tw-mb-4" id="ticketPicture">
+            <ion-list class="tw-w-full">
+              <ion-list-header class="tw-p-0 tw-w-full">
+                <h3 [ngClass]="{ 'tw-mb-0': ticketType.value, 'tw-mb-3': !ticketType.value }">
+                  Please upload a ticket of your
+                  {{ ticketRefLength == 11 ? 'e ' : 'paper ' }}
+                  ticket:
+                </h3>
+              </ion-list-header>
+              <ng-container *ngIf="ticketType.value">
+                <p id="ticketPicModal" class="tw-text-xs tw-p-0 tw-mb-4 tw-w-full tw-underline tw-text-blue-600">
+                  What should my ticket picture look like?
+                </p>
+                <ion-modal trigger="ticketPicModal">
+                  <ng-template>
+                    <app-ticket-pic-modal modalType="ticketPic" [ticketType]="ticketType.value" class="tw-h-full"></app-ticket-pic-modal>
+                  </ng-template>
+                </ion-modal>
+              </ng-container>
+              <div class="tw-mb-4">
+                <ion-button color="p" (click)="takeTicketPhoto()" size="medium" class="tw-mb-2 tw-w-full tw-rounded-lg side-padding">
+                  <ion-icon size="large" name="camera" slot="start"></ion-icon>
+                  Upload a Picture
+                </ion-button>
+                <ion-img *ngIf="newClaimTicketPhoto?.photoPaths?.webviewPath" [src]="newClaimTicketPhoto.photoPaths.webviewPath"></ion-img>
+              </div>
+            </ion-list>
+          </ion-item>
+        </ion-list>
+        <div *ngIf="hasBlankField()">
+          <p class="text-r tw-text-xs">Please make sure no fields have been left blank</p>
+        </div>
+      </ion-list>
+    </form>
+  </ion-grid>
+</ion-content>
+
+<ion-footer class="tall-footer">
+  <ion-toolbar color="l" class="tw-flex tw-align-center">
+    <ion-button
+      (click)="submitNewClaim()"
+      [disabled]="!newClaimForm.valid && !this.loadingSvc.loading"
+      color="p"
+      size="large"
+      class="tw-w-full tw-rounded-lg tw-mt-4 tw-mb-4 side-padding"
+    >
+      Submit Claim
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

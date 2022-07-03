@@ -1,0 +1,281 @@
+{
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  },
+  "root": "apps/mdr/mob/",
+  "sourceRoot": "apps/mdr/mob/src",
+  "prefix": "multi",
+  "targets": {
+    "build-prod-dist": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "nx build mdr.mob --prod"
+        ]
+      }
+    },
+    "serve-prod-dist": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "angular-http-server --path ./dist/apps/mdr/mob/www -p 4200 --https --key ./certs/localhost-key.pem --cert ./certs/localhost-cert.pem --cors"
+        ]
+      }
+    },
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/mdr/mob/www",
+        "index": "apps/mdr/mob/src/index.html",
+        "main": "apps/mdr/mob/src/main.ts",
+        "polyfills": "apps/mdr/mob/src/polyfills.ts",
+        "tsConfig": "apps/mdr/mob/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/mdr/mob/src/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "**/*.svg",
+            "input": "node_modules/ionicons/dist/ionicons/svg",
+            "output": "./svg"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/mdr/src/lib/assets",
+            "output": "@multi/mdr/assets"
+          },
+          "apps/mdr/mob/src/manifest.webmanifest",
+          "apps/mdr/mob/src/manifest.webmanifest"
+        ],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          {
+            "input": "apps/mdr/mob/src/styles.scss"
+          }
+        ],
+        "scripts": [],
+        "aot": false,
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true,
+        "serviceWorker": true,
+        "ngswConfigPath": "apps/mdr/mob/ngsw-config.json"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/mdr/mob/src/environments/environment.ts",
+              "with": "apps/mdr/mob/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "aot": true,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            }
+          ]
+        },
+        "ci": {
+          "progress": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "mdr.mob:build",
+        "proxyConfig": "apps/mdr/mob/proxy-local.config.json",
+        "host": "localhost"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "mdr.mob:build:production",
+          "proxyConfig": "apps/mdr/mob/proxy-prod.config.json",
+          "host": "localhost",
+          "ssl": true,
+          "sslKey": "/Users/drakemacbook2/Documents/Programming/multi/certs/localhost-key.pem",
+          "sslCert": "/Users/drakemacbook2/Documents/Programming/multi/certs/localhost-cert.pem"
+        },
+        "ci": {}
+      },
+      "serviceWorker": true,
+      "ngswConfigPath": "apps/mdr/mob/ngsw-config.json"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "mdr.mob:build"
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "apps/mdr/mob/src/test.ts",
+        "polyfills": "apps/mdr/mob/src/polyfills.ts",
+        "tsConfig": "apps/mdr/mob/tsconfig.spec.json",
+        "karmaConfig": "apps/mdr/mob/karma.conf.js",
+        "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"],
+        "scripts": [],
+        "assets": [
+          {
+            "glob": "favicon.ico",
+            "input": "apps/mdr/mob/src/",
+            "output": "/"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/mdr/mob/src/assets",
+            "output": "/assets"
+          },
+          "apps/mdr/mob/src/manifest.webmanifest",
+          "apps/mdr/mob/src/manifest.webmanifest"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "progress": false,
+          "watch": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@angular-eslint/builder:lint",
+      "options": {
+        "tsConfig": ["apps/mdr/mob/tsconfig.app.json", "apps/mdr/mob/tsconfig.spec.json", "apps/mdr/mob/e2e/tsconfig.json"],
+        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+      }
+    },
+    "ionic-cordova-build": {
+      "executor": "@ionic/angular-toolkit:cordova-build",
+      "options": {
+        "browserTarget": "mdr.mob:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "mdr.mob:build:production"
+        }
+      }
+    },
+    "ionic-cordova-serve": {
+      "executor": "@ionic/angular-toolkit:cordova-serve",
+      "options": {
+        "cordovaBuildTarget": "mdr.mob:ionic-cordova-build",
+        "devServerTarget": "mdr.mob:serve"
+      },
+      "configurations": {
+        "production": {
+          "cordovaBuildTarget": "mdr.mob:ionic-cordova-build:production",
+          "devServerTarget": "mdr.mob:serve:production"
+        }
+      }
+    },
+    "cap": {
+      "executor": "@nxtend/capacitor:cap",
+      "options": {
+        "cmd": "--help"
+      }
+    },
+    "add": {
+      "executor": "@nxtend/capacitor:cap",
+      "options": {
+        "cmd": "add"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "add ios"
+        },
+        "android": {
+          "cmd": "add android"
+        }
+      }
+    },
+    "copy": {
+      "executor": "@nxtend/capacitor:cap",
+      "options": {
+        "cmd": "copy"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "copy ios"
+        },
+        "android": {
+          "cmd": "copy android"
+        }
+      }
+    },
+    "open": {
+      "executor": "@nxtend/capacitor:cap",
+      "options": {
+        "cmd": "open"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "open ios"
+        },
+        "android": {
+          "cmd": "open android"
+        }
+      }
+    },
+    "run": {
+      "executor": "@nxtend/capacitor:cap",
+      "options": {
+        "cmd": "run"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "run ios"
+        },
+        "android": {
+          "cmd": "run android"
+        }
+      }
+    },
+    "sync": {
+      "executor": "@nxtend/capacitor:cap",
+      "options": {
+        "cmd": "sync"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "sync ios"
+        },
+        "android": {
+          "cmd": "sync android"
+        }
+      }
+    },
+    "update": {
+      "executor": "@nxtend/capacitor:cap",
+      "options": {
+        "cmd": "update"
+      },
+      "configurations": {
+        "ios": {
+          "cmd": "update ios"
+        },
+        "android": {
+          "cmd": "update android"
+        }
+      }
+    }
+  }
+}

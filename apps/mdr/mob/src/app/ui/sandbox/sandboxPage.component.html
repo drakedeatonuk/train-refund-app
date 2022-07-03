@@ -1,0 +1,85 @@
+<section class="tw-h-full">
+  <ion-content>
+    <ion-grid>
+      <ion-row>
+        <ng-container *ngIf="isDiffDayArrival">
+          <owl-date-time-inline
+            [(ngModel)]="dates"
+            (dateSelected)="checkDateTimes()"
+            firstDayOfWeek="1"
+            pickerType="both"
+            selectMode="single"
+            disabled="false"
+            pickerType="calendar"
+            [min]="minDate"
+            [max]="maxDate"
+          >
+          </owl-date-time-inline>
+        </ng-container>
+        <ng-container *ngIf="!isDiffDayArrival">
+          <owl-date-time-inline
+            [(ngModel)]="dates"
+            (dateSelected)="checkDateTimes()"
+            firstDayOfWeek="1"
+            pickerType="both"
+            selectMode="range"
+            disabled="false"
+            pickerType="calendar"
+            [min]="minDate"
+            [max]="maxDate"
+          >
+          </owl-date-time-inline>
+        </ng-container>
+
+      </ion-row>
+      <ion-row class="tw-flex tw-flex-row tw-flex-nowrap">
+        <ion-checkbox (click)="isDiffDayArrival = !isDiffDayArrival" id="consent" color="p" class="tw-bg-p tw-w-10 tw-mr-2"></ion-checkbox>
+        <p class="text-d tw-text-xs">
+          Different arrival date
+        </p>
+      </ion-row>
+      <ion-row>
+        <owl-date-time-inline
+          [(ngModel)]="dates"
+          (dateSelected)="checkDateTimes()"
+          firstDayOfWeek="1"
+          pickerType="both"
+          selectMode="range"
+          disabled="false"
+          pickerType="timer"
+          [min]="minDate"
+          [max]="maxDate"
+        >
+        </owl-date-time-inline>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  <ion-footer>
+    <ion-grid>
+      <ion-row class="tw-flex tw-flex-row">
+        <div class="tw-w-6/12 tw-pl-1">
+          <ion-button (click)="close()" color="dg" size="large" class="tw-rounded-lg tw-w-full"> Cancel </ion-button>
+        </div>
+        <div class="tw-w-6/12 tw-pl-1">
+          <ion-button (click)="confirm()" [disabled]="isInvalidDateTimes" color="p" size="large" class="tw-rounded-lg tw-w-full">
+            Confirm
+          </ion-button>
+        </div>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+</section>
+
+
+<!-- <mat-form-field appearance="fill">
+  <mat-label>Enter a date range</mat-label>
+  <mat-date-range-input [rangePicker]="picker">
+    <input matStartDate placeholder="Start date">
+    <input matEndDate placeholder="End date">
+  </mat-date-range-input>
+  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker
+  touchUi="true"
+  #picker></mat-date-range-picker>
+</mat-form-field> -->

@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "mydelayrepay",
+	"webDir": "www/",
+	"bundledWebRuntime": false
+}

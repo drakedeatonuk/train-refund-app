@@ -1,0 +1,28 @@
+{
+  "projectType": "library",
+  "root": "libs/material-design",
+  "sourceRoot": "libs/material-design/src",
+  "prefix": "multi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/material-design"
+      ],
+      "options": {
+        "jestConfig": "libs/material-design/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/material-design/src/**/*.ts",
+          "libs/material-design/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

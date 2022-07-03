@@ -1,0 +1,47 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Ticket Pictures</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="tw-h-full">
+  <ion-grid class="tw-mt-2">
+    <ion-row class="tw-mb-3">
+      <p *ngIf="modalType =='ticketRef'">
+        You can find your
+        <strong>
+          {{ticketType == 'eTicket' ? '11-digit e-ticket' : '8-digit paper ticket'}}
+        </strong>
+        reference number in the following places on your ticket:
+      </p>
+      <p *ngIf="modalType == 'ticketPic'">
+        The uploaded photo of your
+        <strong>
+          {{ticketType == 'eTicket' ? 'e-ticket' : 'paper ticket'}}
+        </strong>
+        should look similar to one of these photos:
+      </p>
+    </ion-row>
+    <ng-container *ngIf="ticketType == 'eTicket'">
+      <ng-container *ngFor="let path of eTicketPicPaths">
+        <ion-row class="tw-mb-4 tw-flex tw-justify-center">
+          <div class="tw-w-3/4">
+            <ion-img [src]="path"></ion-img>
+          </div>
+        </ion-row>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="ticketType == 'paperTicket'">
+      <ng-container *ngFor="let path of paperTicketPicPaths">
+        <ion-row class="tw-mb-4 tw-flex tw-justify-center">
+          <div class="tw-w-3/4">
+            <ion-img [src]="path"></ion-img>
+          </div>
+        </ion-row>
+      </ng-container>
+    </ng-container>
+
+  </ion-grid>
+</ion-content>

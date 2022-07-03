@@ -1,0 +1,106 @@
+{
+  "projectType": "application",
+  "root": "apps/practice/service-workers",
+  "sourceRoot": "apps/practice/service-workers/src",
+  "prefix": "multi",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/practice/service-workers",
+        "index": "apps/practice/service-workers/src/index.html",
+        "main": "apps/practice/service-workers/src/main.ts",
+        "polyfills": "apps/practice/service-workers/src/polyfills.ts",
+        "tsConfig": "apps/practice/service-workers/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/practice/service-workers/src/favicon.ico",
+          "apps/practice/service-workers/src/assets",
+          "apps/practice/service-workers/src/manifest.webmanifest"
+        ],
+        "styles": [
+          "apps/practice/service-workers/src/styles.scss"
+        ],
+        "scripts": [],
+        "serviceWorker": true,
+        "ngswConfigPath": "apps/practice/service-workers/ngsw-config.json"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/practice/service-workers/src/environments/environment.ts",
+              "with": "apps/practice/service-workers/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "practice-service-workers:build:production"
+        },
+        "development": {
+          "browserTarget": "practice-service-workers:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/practice/service-workers/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "practice-service-workers:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/practice/service-workers/src/**/*.ts",
+          "apps/practice/service-workers/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/apps/practice/service-workers"
+      ],
+      "options": {
+        "jestConfig": "apps/practice/service-workers/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

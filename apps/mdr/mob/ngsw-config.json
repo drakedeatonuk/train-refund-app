@@ -1,0 +1,76 @@
+{
+  "$schema": "../../../node_modules/@angular/service-worker/config/schema.json",
+  "index": "./index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js",
+          "/svg/train-outline.svg",
+          "/svg/calendar.svg",
+          "/svg/ticket-outline.svg",
+          "/svg/camera.svg",
+          "/svg/information-circle.svg",
+          "https://fonts.gstatic.com/s/materialicons/v130/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "prefetch",
+      "updateMode": "lazy",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/@multi/**",
+          "@multi/mdr/assets/logo/insignia.png",
+          "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+        ]
+      }
+    },
+    {
+      "name": "ionic",
+      "installMode": "prefetch",
+      "updateMode": "lazy",
+      "resources": {
+        "files": [
+          "/node_modules_ionic_core_dist_esm_ion-toast_entry_js.js",
+          "/node_modules_ionic_core_dist_esm_ion-radio_2_entry_js.js",
+          "/node_modules_ionic_core_dist_esm_ion-ripple-effect_entry_js.js",
+          "/node_modules_ionic_core_dist_esm_ion-datetime_3_entry_js.js",
+          "/node_modules_ionic_core_dist_esm_ion-checkbox_entry_js.js",
+          "/node_modules_ionic_core_dist_esm_ion-picker-internal_entry_js.js",
+          "/node_modules_ionic_core_dist_esm_ion-picker-column-internal_entry_j",
+          "/node_modules_ionic_core_dist_esm_tap-click-bc311f74_js.js",
+          "/node_modules_ionic_core_dist_esm_input-shims-1b20a970_js.js",
+          "/node_modules_capacitor_camera_dist_esm_web_js.js",
+          "/node_modules_capacitor_dialog_dist_esm_web_js.js",
+          "/4959.b519080145ed4610.js",
+          "/9922.db5ed29b9be251f4.js",
+          "/4432.628f7ce7037e6401.js"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": [
+        "https://fonts.gstatic.com/**",
+        "https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2",
+        "/svg/**"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxAge": "7d",
+        "maxSize": 100
+      }
+    }
+  ]
+}

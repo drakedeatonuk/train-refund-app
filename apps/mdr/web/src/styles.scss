@@ -1,0 +1,84 @@
+@import "../../../node_modules/primeflex/primeflex.scss";
+@import "../../../node_modules/primeicons/primeicons.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.layout-config-button {
+    display: block;
+    position: fixed;
+    width: 52px;
+    height: 52px;
+    line-height: 52px;
+    background-color: var(--primary-color);
+    text-align: center;
+    color: var(--primary-color-text);
+    top: 270px;
+    right: 0;
+    z-index: 100;
+    overflow: hidden;
+    cursor: pointer;
+    outline: 0 none;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+    i {
+        font-size: 26px;
+        line-height: inherit;
+        cursor: pointer;
+        transform: rotate(360deg);
+        transition: transform 1s;
+    }
+}
+
+.open-close-container {
+  border: 1px solid #dddddd;
+  margin-top: 1em;
+  padding: 20px 20px 0px 20px;
+  color: #000000;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+
+
+
+ul.list {
+  margin: 0;
+  padding: 24px;
+  display: block;
+  list-style: none;
+
+  > li.list-item {
+    width: 100%;
+    height: 25vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color .25s ease-in-out, color .25s ease-in-out;
+
+    &:not(:first-child) {
+    margin-top: 12px;
+    }
+
+    &.inactive {
+    background-color: #CCCCCC;
+    color: rgba(#000000, .85);
+    }
+
+    &.active {
+    background-color: #00C853;
+    color: rgba(#FFFFFF, .85);
+    }
+
+    > span {
+    font-weight: 700;
+    }
+  }
+}

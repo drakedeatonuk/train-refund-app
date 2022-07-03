@@ -1,0 +1,24 @@
+{
+  "name": "mydelayrepay",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "version": "0.0.0",
+  "scripts": {
+    "cap.add.ios": "npx ionic cap add ios",
+    "cap.add.android": "npx ionic cap add android",
+    "cap.ios": "npx ionic cap open ios",
+    "cap.android": "npx ionic cap open android",
+    "cap.sync": "npx ionic cap sync"
+  },
+  "dependencies": {
+    "@capacitor/android": "3.4.3",
+    "@capacitor/app": "~1.0.2",
+    "@capacitor/core": "^3.0.0",
+    "@capacitor/haptics": "~1.0.2",
+    "@capacitor/ios": "3.4.3",
+    "@capacitor/keyboard": "~1.0.2",
+    "@capacitor/status-bar": "~1.0.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^3.0.0"
+  }
+}

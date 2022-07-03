@@ -1,0 +1,21 @@
+<ion-content>
+  <form [formGroup]="cardDetails">
+    <ion-grid class="tw-mt-2 tw-flex tw-flex-col tw-justify-between">
+      <ion-row class="tw-flex">
+        <h2>Add a New Card</h2>
+        <div class="tw-grow tw-flex tw-flex-row-reverse side-padding">
+          <img src="@multi/mdr/assets/brands/powered-by-stripe.svg" class="tw-w-24 tw-mb-4" />
+        </div>
+        <p class="text-d tw-text-xs">We use your card details to send your compensation money. We will never make charges to your card.</p>
+        <div class="tw-w-full tw-pr-2 stripe-iframe">
+          <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
+            <ngx-stripe-payment [options]="options" [appearance]="appearance" [clientSecret]="clientSecret"></ngx-stripe-payment>
+          </ng-container>
+        </div>
+      </ion-row>
+      <ion-row>
+        <ion-button (click)="addCard()" color="p" size="large" class="tw-mt-4 tw-w-full tw-rounded-lg tw-mb-4"> Submit </ion-button>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

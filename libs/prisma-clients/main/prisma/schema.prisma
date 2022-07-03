@@ -1,0 +1,122 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../../node_modules/.prisma/main-client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("MAIN_DATABASE_URL")
+}
+
+////////////////////////// USER //////////////////////////
+
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  password     String
+  firstName    String
+  lastName     String
+  consent      Boolean
+  emailToken   String    @default("")
+  isVerified   Boolean   @default(false)
+  crmContactId Int?      @unique
+  customer     Customer?
+  address      Address?
+  claims       Claim[]
+  Photo        Photo[]
+}
+
+////////////////////////// CUSTOMERS //////////////////////////
+
+model Customer {
+  id                Int              @id @default(autoincrement())
+  userId            Int              @unique
+  customerBillingId String
+  user              User             @relation(fields: [userId], references: [id])
+  paymentMethods    PaymentMethods[]
+}
+
+model PaymentMethods {
+  id               Int      @id @default(autoincrement())
+  customerId       Int
+  paymentMethodId  String   @unique
+  maskedCardNumber String
+  customer         Customer @relation(fields: [customerId], references: [id])
+}
+
+////////////////////////// ADDRESSES //////////////////////////
+
+model Address {
+  id       Int    @id @default(autoincrement())
+  userId   Int    @unique
+  address1 String
+  address2 String
+  city     String
+  postcode String
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+////////////////////////// CLAIMS //////////////////////////
+
+model Claim {
+  id                   Int           @id @default(autoincrement())
+  userId               Int
+  isReturn             Boolean
+  ticketPrice          Int
+  ticketRef            String
+  ticketPicId          Int           @unique
+  trainDelay           String
+  ticketType           TicketType
+  purchaseType         PurchaseType?
+  claimType            ClaimType
+  journeyStartStation  String
+  journeyEndStation    String
+  journeyStartDateTime DateTime
+  journeyEndDateTime   DateTime
+  dateCreated          DateTime
+  crmTicketId          Int?          @unique
+  claimStatus          ClaimStatus
+  user                 User?         @relation(fields: [userId], references: [id])
+  photo                Photo?        @relation(fields: [ticketPicId], references: [id])
+}
+
+////////////////////////// PHOTOS //////////////////////////
+
+model Photo {
+  id          Int    @id @default(autoincrement())
+  userId      Int
+  firebaseId  String @unique
+  firebaseUrl String
+  nativeUrl   String
+  claim       Claim?
+  user        User?  @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum TicketType {
+  eTicket
+  paperTicket
+}
+
+enum PurchaseType {
+  fromStation
+  fromTrainWebsite
+}
+
+enum ClaimType {
+  delayedTrain
+  cancelledTrain
+}
+
+enum ClaimStatus {
+  pending
+  approved
+  declined
+}

@@ -1,0 +1,51 @@
+<ion-header class="shadowless-header">
+  <ion-toolbar mode="md" color="l">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Settings </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row [routerLink]="['/payment-information']" class="tw-mb-2">
+      <div class="background-dg tw-w-full tw-h-20 tw-flex tw-rounded-r-xl tw-border">
+        <div class="tw-ml-4 tw-mr-4 tw-flex tw-items-center">
+          <ion-icon color="d" size="large" class="tw-drop-shadow-xl tw-rounded-full background-l tw-p-1.5" name="card"></ion-icon>
+        </div>
+        <div class="tw-flex tw-items-center">
+          <h3 class="tw-m-0">Payment Information</h3>
+        </div>
+        <div class="tw-ml-auto tw-flex tw-items-center">
+          <ion-icon color="ld" size="small" class="tw-p-1.5" name="arrow-forward"></ion-icon>
+        </div>
+      </div>
+    </ion-row>
+    <ion-row [routerLink]="['/personal-information']" class="tw-mb-2">
+      <div class="background-dg tw-w-full tw-h-20 tw-flex tw-rounded-r-xl tw-border">
+        <div class="tw-ml-4 tw-mr-4 tw-flex tw-items-center">
+          <ion-icon color="d" size="large" class="tw-drop-shadow-xl tw-rounded-full background-l tw-p-1.5" name="person-outline"></ion-icon>
+        </div>
+        <div class="tw-flex tw-items-center">
+          <h3 class="tw-m-0">Personal information</h3>
+        </div>
+      </div>
+    </ion-row>
+    <ion-row id="logout-button">
+      <div class="background-dg tw-w-full tw-h-20 tw-flex tw-rounded-r-xl tw-border">
+        <div class="tw-ml-4 tw-mr-4 tw-flex tw-items-center">
+          <ion-icon color="d" size="large" class="tw-drop-shadow-xl tw-rounded-full background-l tw-p-1.5" name="log-out"></ion-icon>
+        </div>
+        <div class="tw-flex tw-items-center">
+          <h3 class="tw-m-0">Log Out</h3>
+        </div>
+      </div>
+      <ion-modal trigger="logout-button" [initialBreakpoint]="0.4" [breakpoints]="[0, 0.4]">
+        <ng-template>
+          <app-logout-modal class="tw-h-full"></app-logout-modal>
+        </ng-template>
+      </ion-modal>
+    </ion-row>
+  </ion-grid>
+</ion-content>

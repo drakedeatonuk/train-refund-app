@@ -1,0 +1,62 @@
+<ion-header class="shadowless-header">
+  <ion-toolbar mode="md" color="l">
+    <ion-title>Claims Dashboard</ion-title>
+    <ion-avatar [routerLink]="['/settings']" slot="end">
+      <img [src]="assets.profile.profileIcon" />
+    </ion-avatar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ng-container *ngIf="(this.userSvc.store.user$ | async)?.claims">
+      <div *ngFor="let claim of (this.userSvc.store.user$ | async).claims">
+        <ion-row (click)="openClaim(claim)" class="tw-h-24 tw-flex tw-items-center tw-mt-1 tw-mb-1">
+          <ion-col size="2" class="tw-bg-blue">
+            <img src="@multi/mdr/assets/icons/ticket.svg" class="tw-w-full tw-p-1 tw-fill-gray-500" />
+          </ion-col>
+          <ion-col size="8" class="tw-bg-red tw-flex tw-items-center">
+            <div class="tw-h-fit">
+              <h4 class="text-d tw-mb-0">
+                <span class="tw-font-medium line-ellipsis">
+                  {{ this.claimSvc.shortCodeToStation(claim.journeyStartStation) }}
+                </span>
+                <br class="tw-h-0" />
+                <span class="tw-font-medium line-ellipsis">
+                  <span class="tw-font-normal"> to </span>
+                  {{ this.claimSvc.shortCodeToStation(claim.journeyEndStation) }}
+                </span>
+              </h4>
+              <ion-chip [color]="selectChipColor(claim.claimStatus)" class="tw-m-0">
+                <ion-icon size="small" name="help-circle-outline"></ion-icon>
+                <ion-label class="tw-text-xs">{{ capitalize(claim.claimStatus) }}</ion-label>
+              </ion-chip>
+            </div>
+          </ion-col>
+          <ion-col size="2" class="tw-bg-green tw-flex tw-items-center">
+            <div class="text-d tw-text-xs">
+              <span class="tw-font-medium">Sent: </span>
+              <span>{{ this.claimSvc.simpleDate(claim.dateCreated) }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-item-divider color="g" class="tw-min-h-0 tw-h-px"></ion-item-divider>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="(this.userSvc.store.user$ | async)?.claims.length === 0">
+      <div>
+        <p>
+          Make your first claim today!
+        </p>
+      </div>
+    </ng-container>
+  </ion-grid>
+</ion-content>
+
+<ion-footer class="tall-footer">
+  <ion-toolbar color="l" class="tw-flex tw-align-center">
+    <ion-button [routerLink]="['/new-claim']" color="p" size="large" class="tw-w-full tw-rounded-lg tw-mt-4 tw-mb-4 side-padding">
+      Create a Claim
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

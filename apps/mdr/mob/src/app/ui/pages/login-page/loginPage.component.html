@@ -1,0 +1,65 @@
+<ion-header class="shadowless-header">
+  <ion-toolbar mode="ios" color="l">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="logged-out"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="background-l">
+  <form [formGroup]="loginForm" class="tw-h-full">
+    <ion-grid class="tw-h-full tw-flex tw-flex-col tw-justify-center">
+      <ion-row class="tw-mb-4 tw-flex tw-justify-center">
+        <img src="@multi/mdr/assets/logo/insignia.png" class="tw-w-20" />
+      </ion-row>
+
+      <ion-row class="tw-mt-4 tw-mb-4">
+        <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input id="loginEmail" formControlName="loginEmail" type="email"></ion-input>
+        </ion-item>
+        <div *ngIf="loginEmail?.touched && loginEmail?.invalid && loginEmail?.value?.length > 0" class="tw-mt-1">
+          <div *ngIf="loginEmail?.errors?.['email']">
+            <p class="tw-ml-4 text-r">Please use a real email.</p>
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row class="tw-mb-4">
+        <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input id="password" formControlName="password" type="password"></ion-input>
+        </ion-item>
+        <div *ngIf="password?.touched && password?.invalid && password?.value?.length > 0" class="tw-mt-1">
+          <div *ngIf="password?.errors?.['minlength']">
+            <p class="tw-ml-4 text-r">Your password must be over 6 characters.</p>
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row>
+        <p id="forgot-password-button" class="text-p tw-p-0 tw-mb-4 tw-w-full tw-text-center">Forgot Your Password?</p>
+        <ion-modal trigger="forgot-password-button" [initialBreakpoint]="0.5" [breakpoints]="[0, 0.5]">
+          <ng-template>
+            <app-forgot-password-modal class="tw-h-full"></app-forgot-password-modal>
+          </ng-template>
+        </ion-modal>
+      </ion-row>
+
+      <ion-row>
+        <ion-button [disabled]="!loginForm.valid" (click)="login()" color="p" size="large" class="tw-w-full tw-rounded-lg tw-mt-4 tw-mb-4">Log In</ion-button>
+      </ion-row>
+      <ion-row>
+        <ion-button [routerLink]="['/register/1']" color="d" size="large" class="tw-w-full tw-rounded-lg tw-mb-4">Register</ion-button>
+      </ion-row>
+      <ion-row class="tw-justify-center tw-content-center tw-flex-col">
+        <p class="text-p tw-p-0 tw-mb-4 tw-text-center">- Or use another way -</p>
+        <ion-button color="l" class="tw-rounded-lg tw-mb-6 tw-w-fit">
+          <img src="@multi/mdr/assets/brands/google-logo.png" class="tw-h-5 tw-pr-2" />
+          Sign in With Google
+        </ion-button>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

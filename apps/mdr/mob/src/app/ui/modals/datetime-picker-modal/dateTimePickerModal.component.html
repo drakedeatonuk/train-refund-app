@@ -1,0 +1,57 @@
+<section class="tw-h-full">
+  <ion-content>
+    <ion-grid>
+      <ion-row class="tw-flex tw-justify-center">
+        <ion-datetime (ionChange)="updateDate($event)" [min]="simpleDateCanada(minDate)" [max]="simpleDateCanada(maxDate)" [value]="simpleDateCanada(journeyStartDateTime ? journeyStartDateTime : now)" presentation="date"></ion-datetime>
+      </ion-row>
+      <ion-row class="tw-mb-2">
+        <mat-form-field appearance="fill"  class="tw-w-full">
+          <mat-label>Departure Time</mat-label>
+          <input matTimepicker #t="matTimepicker" #startTime
+            [strict]="false" mode="24h" name="startTime"
+            (timeChange)="startTimeChange($event)" [ngModel]="journeyStartDateTime">
+          <mat-icon matSuffix (click)="t.showDialog()">access_time</mat-icon>
+        </mat-form-field>
+      </ion-row>
+      <ion-row>
+        <mat-form-field appearance="fill" class="tw-w-full">
+          <mat-label>Arrival Time</mat-label>
+          <input matTimepicker #t="matTimepicker" #endTime
+          [strict]="false" mode="24h" name="endTime"
+          (timeChange)="endTimeChange($event)" [ngModel]="journeyEndDateTime">
+          <mat-icon matSuffix (click)="t.showDialog()">access_time</mat-icon>
+        </mat-form-field>
+        <div *ngIf="journeyStartDateTime && journeyEndDateTime && !timesAreChronological" class="tw-m-0 error-messages">
+          <div class="error-message">
+            <p class="text-r tw-text-xs">Your arrival time can't be before your departure time.</p>
+          </div>
+        </div>
+        <div *ngIf="journeyStartDateTime && journeyEndDateTime && (timesAreChronological && !timesAreInPast)" class="tw-m-0 error-messages">
+          <div class="error-message">
+            <p class="text-r tw-text-xs">Your arrival & departure times must both be in the past.</p>
+          </div>
+        </div>
+      </ion-row>
+      <ion-row class="tw-flex tw-flex-row tw-justify-end tw-flex-nowrap tw-mr-6 tw-mb-4">
+        <p class="text-ld tw-text-xxs tw-m-0">
+          Next day arrival
+        </p>
+        <ion-checkbox (click)="changeIsNextDayArrival()" id="consent" color="ld" class="tw-bg-p tw-ml-2 tw-flex tw-self-center"></ion-checkbox>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  <ion-footer>
+    <ion-grid>
+      <ion-row class="tw-flex tw-flex-row">
+        <div class="tw-w-6/12 tw-pl-1">
+          <ion-button (click)="close()" color="dg" size="large" class="tw-rounded-lg tw-w-full"> Cancel </ion-button>
+        </div>
+        <div class="tw-w-6/12 tw-pl-1">
+          <ion-button (click)="confirm()" [disabled]="!isValidDateTimes" color="p" size="large" class="tw-rounded-lg tw-w-full">
+            Confirm
+          </ion-button>
+        </div>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+</section>

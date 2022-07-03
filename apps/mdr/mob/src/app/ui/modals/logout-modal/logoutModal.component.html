@@ -1,0 +1,17 @@
+<ion-content class="tw-h-full">
+  <ion-grid class="tw-mt-2">
+    <ion-row>
+      <h2>Are you sure you want to log out?</h2>
+    </ion-row>
+  </ion-grid>
+  <ion-button
+    [routerLink]="['/logged-out']"
+    (click)="initLogout()"
+    color="p"
+    size="large"
+    class="tw-w-full side-padding tw-rounded-lg tw-mb-4"
+  >
+    Log Out
+  </ion-button>
+  <ion-button (click)="closeModal()" color="d" size="large" class="tw-w-full side-padding tw-rounded-lg tw-mb-4">Cancel</ion-button>
+</ion-content>

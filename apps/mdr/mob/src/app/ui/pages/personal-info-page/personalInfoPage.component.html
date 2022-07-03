@@ -1,0 +1,131 @@
+<ion-header class="shadowless-header">
+  <ion-toolbar mode="md" color="l">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Personal Information </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="background-l">
+  <form [formGroup]="personalInfoForm" class="tw-h-full">
+    <ion-grid class="tw-flex tw-flex-col tw-justify-center">
+
+      <ion-row class="tw-mt-4 tw-mb-4">
+        <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input id="loginEmail" type="email" formControlName="loginEmail" disabled="true"></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="tw-flex tw-flex-row tw-mb-4">
+        <div class="tw-w-6/12 tw-pr-1">
+          <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input id="firstName" type="text" formControlName="firstName"></ion-input>
+          </ion-item>
+        </div>
+        <div class="tw-w-6/12 tw-pl-1">
+          <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input id="lastName" type="text" formControlName="lastName"></ion-input>
+          </ion-item>
+        </div>
+        <div class="tw-mt-1 error-messages"
+          *ngIf="
+            (firstName?.touched || lastName?.touched) &&
+            (firstName?.invalid || lastName?.invalid)
+          "
+        >
+          <div *ngIf="firstName?.errors?.['required'] || lastName?.errors?.['required']" class="error-message">
+            <p class="tw-ml-4 text-r tw-text-xs tw-mb-0">Both a starting & ending station is required.</p>
+          </div>
+          <div *ngIf="firstName?.errors?.['maxlength'] || lastName?.errors?.['maxlength']" class="error-message">
+            <p class="tw-ml-4 text-r tw-text-xs tw-mb-0">Please enter a name less than 40 characters</p>
+          </div>
+          <div *ngIf="firstName?.errors?.['pattern'] || lastName?.errors?.['pattern']" class="error-message">
+            <p class="tw-ml-4 text-r tw-text-xs tw-mb-0">Please enter a name with no numbers or special characters.</p>
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row class="tw-mb-4">
+        <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+          <ion-label position="floating">Address 1</ion-label>
+          <ion-input id="address1" type="text" formControlName="address1"></ion-input>
+        </ion-item>
+        <div class="tw-mt-1 error-messages"
+          *ngIf="address1?.touched && address1?.invalid"
+        >
+          <div *ngIf="address1?.errors?.['required']" class="error-message">
+            <p class="tw-ml-4 text-r tw-text-xs tw-mb-0">An address is required</p>
+          </div>
+          <div *ngIf="address1?.errors?.['maxlength']" class="error-message">
+            <p class="tw-ml-4 text-r tw-text-xs tw-mb-0">Please enter an address less than 100 characters</p>
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row class="tw-mb-4">
+        <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+          <ion-label position="floating">Address 2 (optional)</ion-label>
+          <ion-input id="address2" type="text" formControlName="address2"></ion-input>
+        </ion-item>
+        <div class="tw-mt-1 error-messages"
+          *ngIf="address2?.touched && address2?.invalid"
+        >
+          <div *ngIf="address2?.errors?.['maxlength']" class="error-message">
+            <p class="tw-ml-4 text-r tw-text-xs tw-mb-0">Please enter an address less than 100 characters</p>
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row class="tw-flex tw-flex-row tw-mb-4">
+        <div class="tw-w-6/12 tw-pr-1">
+          <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+            <ion-label position="floating">City</ion-label>
+            <ion-input id="city" type="text" formControlName="city"></ion-input>
+          </ion-item>
+          <div class="tw-mt-1 error-messages" *ngIf="city?.touched && city?.invalid">
+            <div *ngIf="city?.errors?.['required']" class="error-message">
+              <p class="tw-ml-4 text-r tw-text-xs tw-mb-0">A city is required</p>
+            </div>
+            <div *ngIf="city?.errors?.['pattern']" class="error-message">
+              <p class="tw-ml-4 text-r tw-text-xs tw-mb-0">Please enter a city name with no special characters</p>
+            </div>
+          </div>
+        </div>
+        <div class="tw-w-6/12 tw-pl-1">
+          <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+            <ion-label position="floating">Postcode</ion-label>
+            <ion-input id="postcode" type="text" formControlName="postcode"
+              [ngModel]="postcode.value" (ngModelChange)="postcode.setValue($event.toUpperCase())">
+            </ion-input>
+          </ion-item>
+          <div class="tw-mt-1 error-messages" *ngIf="postcode?.touched && postcode?.invalid">
+            <div *ngIf="postcode?.errors?.['required']" class="error-message">
+              <p class="tw-ml-4 text-r tw-text-xs tw-mb-0">A postcode is required</p>
+            </div>
+            <div *ngIf="postcode?.errors?.['pattern']" class="error-message">
+              <p class="tw-ml-4 text-r tw-text-xs tw-mb-0">Please enter a valid UK postcode</p>
+            </div>
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row class="tw-mb-4 tw-flex tw-justify-center">
+        <p class="tw-text-xs text-ld">
+          My Delay Repay only shares your information with train companies, and only when we're making compensation claims on your behalf. Without this information, we can't make claims for you.
+        </p>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+
+<ion-footer class="tall-footer">
+  <ion-toolbar color="l" class="tw-flex tw-align-center">
+    <ion-button (click)="enterEditMode()" [style.display]="personalInfoForm.disabled ? 'inline-block' : 'none'" color="p" size="large" class="tw-w-full tw-rounded-lg tw-mt-4 tw-mb-4 side-padding"> Edit My Details </ion-button>
+    <ion-button (click)="leaveEditMode()" [style.display]="!personalInfoForm.disabled ? 'inline-block' : 'none'" color="ld" size="large" class="tw-w-6/12 tw-rounded-lg tw-mt-4 tw-mb-4 tw-ml-0 tw-mr-0 side-padding"> Cancel </ion-button> <!-- TODO: Add cancel function -->
+    <ion-button (click)="submit()" color="p" [disabled]="!personalInfoForm.valid" [style.display]="!personalInfoForm.disabled ? 'inline-block' : 'none'" size="large" class="tw-w-6/12 tw-rounded-lg tw-mt-4 tw-mb-4 tw-ml-0 tw-mr-0 side-padding"> Confirm </ion-button> <!-- TODO: Add cancel function -->
+  </ion-toolbar>
+</ion-footer>

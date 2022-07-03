@@ -1,0 +1,5 @@
+<button pButton pRipple label="Click me" (click)="toggle()" class="ml-3 font-bold tw-w-64 tw-m-0"></button>
+
+<div [@openClose]="isOpen ? 'open' : 'closed'" class="open-close-container tw-w-64">
+  <p>The box is now {{ isOpen ? 'Open' : 'Closed' }}!</p>
+</div>

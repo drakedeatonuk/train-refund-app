@@ -1,0 +1,7 @@
+{
+  "name": "mydelayrepay",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

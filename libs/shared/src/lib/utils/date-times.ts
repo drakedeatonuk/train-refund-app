@@ -1,0 +1,12 @@
+export type N = 1|2|3|4|5|6|7|8|9|0;
+type YYYY = `19${N}${N}` | `20${N}${N}`;
+type oneToNine = 1|2|3|4|5|6|7|8|9;
+type MM = `0${oneToNine}` | `1${0|1|2}`;
+type DD = `${0}${oneToNine}` | `${1|2}${N}` | `3${0|1}`;
+export type DateYMString = `${YYYY}-${MM}`;
+export type DateMYString = `${MM}-${YYYY}`;
+export type DateMDString = `${MM}-${DD}`;
+export type DateDMString = `${DD}-${MM}`;
+export type DateYMDString = `${DateYMString}-${DD}`;
+export type DateDMYString = `${DD}-${DateMYString}`;
+export type Time = `${0|1|2}${N}${0|1|2|3|4|5|6}${N}`;

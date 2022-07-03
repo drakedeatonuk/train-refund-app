@@ -1,0 +1,60 @@
+{
+  "root": "libs/prisma-clients",
+  "sourceRoot": "libs/prisma-clients",
+  "projectType": "library",
+  "targets": {
+    "seed": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "ts-node {args.client}/prisma/seeders/seed.ts"
+        ],
+        "parallel": false,
+        "cwd": "libs/prisma-clients"
+      }
+    },
+    "re-seed": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "prisma migrate reset --schema='{args.client}/prisma/schema.prisma' --force",
+          "prisma db push --schema='{args.client}/prisma/schema.prisma'",
+          "prisma generate --schema='{args.client}/prisma/schema.prisma'",
+          "ts-node {args.client}/prisma/seeders/seed.ts"
+        ],
+        "cwd": "libs/prisma-clients",
+        "parallel": false
+      }
+    },
+    "reset": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "prisma migrate reset --schema='{args.client}/prisma/schema.prisma' --force"
+        ],
+        "cwd": "libs/prisma-clients",
+        "parallel": false
+      }
+    },
+    "db-push": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "prisma db push --schema='{args.client}/prisma/schema.prisma'"
+        ],
+        "cwd": "libs/prisma-clients",
+        "parallel": false
+      }
+    },
+    "generate": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "prisma generate --schema='{args.client}/prisma/schema.prisma'"
+        ],
+        "cwd": "libs/prisma-clients",
+        "parallel": false
+      }
+    }
+  }
+}

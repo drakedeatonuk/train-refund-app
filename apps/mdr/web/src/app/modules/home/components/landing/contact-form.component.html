@@ -1,0 +1,64 @@
+<div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+    <div class="grid">
+        <div class="col-12 md:col-6">
+            <div class="p-fluid pr-0 md:pr-6">
+              <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" >
+                <div class="field">
+                    <label for="name" class="font-medium text-900">Name</label>
+                    <input id="name" type="text" pInputText formControlName="name" class="py-3 px-2 text-lg tw-w-full">
+                    <div *ngIf="name?.invalid && name?.touched && name?.value?.length > 0" class="alert alert-danger text-900">
+                      <div *ngIf="name?.errors?.['required']">
+                        Name is required.
+                      </div>
+                      <div *ngIf="name?.errors?.['minlength']">
+                        Name must be at least 4 characters long.
+                      </div>
+                      <div *ngIf="name?.errors?.['forbiddenName']">
+                        Name cannot be Bob.
+                      </div>
+                    </div>
+                </div>
+                {{contactForm.errors?.['doubleEntry']}}
+                <div class="field">
+                    <label for="email" class="font-medium text-900">Email</label>
+                    <input id="email" type="text" pInputText formControlName="email" class="py-3 px-2 text-lg tw-w-full">
+                </div>
+                <div class="field">
+                    <label for="company" class="font-medium text-900">Company</label>
+                    <input id="company" type="text" pInputText formControlName="company" class="py-3 px-2 text-lg tw-w-full">
+                </div>
+                <div class="field">
+                    <label for="message" class="font-medium text-900">Message</label>
+                    <textarea id="message" pInputTextarea rows="6" [autoResize]="true" formControlName="message" class="py-3 px-2 text-lg tw-w-full"></textarea>
+                    <div *ngIf="name?.dirty && message?.dirty ?? contactForm.errors?.['doubleEntry']" class="alert alert-danger text-900">
+                        Message & Name cannot be the same.
+                    </div>
+                </div>
+                <button pButton pRipple (click)="updateName()" label="Send Message" icon="pi pi-send" class="primary w-auto"></button>
+              </form>
+            </div>
+        </div>
+        <div class="col-12 md:col-6 bg-no-repeat bg-right-bottom" style="background-image: url('assets/images/contact-1.png')">
+            <div class="text-900 text-2xl font-medium mb-6">Contact Us</div>
+            <div class="text-700 line-height-3 mb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div>
+            <a class="inline-flex align-items-center text-blue-600 font-bold no-underline cursor-pointer">
+                <span class="mr-3">View Address on Google Maps</span>
+                <i class="pi pi-arrow-right"></i>
+            </a>
+            <ul class="list-none p-0 m-0 mt-6 text-700">
+                <li class="flex align-items-center mb-3">
+                    <i class="pi pi-phone mr-2"></i>
+                    <span>+123456789</span>
+                </li>
+                <li class="flex align-items-center mb-3">
+                    <i class="pi pi-twitter mr-2"></i>
+                    <span>@prime_ng</span>
+                </li>
+                <li class="flex align-items-center">
+                    <i class="pi pi-inbox mr-2"></i>
+                    <span>contact@primetek.com.tr</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

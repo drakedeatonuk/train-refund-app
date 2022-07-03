@@ -1,0 +1,23 @@
+<ion-grid class="background-d tw-h-100 tw-flex tw-flex-col">
+  <ion-row class="tw-grow">
+    <img src="@multi/mdr/assets/logo/rough-logo.png" />
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-row>
+        <ion-button [routerLink]="['/log-in']" color="p" size="large" class="tw-w-full tw-rounded-lg tw-mt-4 tw-mb-4">Log In</ion-button>
+      </ion-row>
+      <ion-row>
+        <ion-button [routerLink]="['/register/1']" color="l" size="large" class="tw-w-full tw-rounded-lg tw-mb-4">Register</ion-button>
+      </ion-row>
+      <ion-row class="tw-justify-center tw-content-center tw-flex-col">
+        <p class="text-l tw-p-0 tw-mb-4 tw-text-center">- Or use another way -</p>
+        <ion-button color="l" class="tw-rounded-lg tw-mb-6 tw-w-fit">
+          <img src="@multi/mdr/assets/brands/google-logo.png" class="tw-h-5 tw-pr-2" />
+          Sign in With Google
+        </ion-button>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-grid>

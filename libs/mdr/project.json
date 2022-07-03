@@ -1,0 +1,43 @@
+{
+  "root": "libs/mdr",
+  "sourceRoot": "libs/mdr/src",
+  "projectType": "library",
+  "targets": {
+    "publish-datetime-picker": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "cd ./src/lib/forks/angular-datetime-picker && pwd && npm version patch --no-git-tag-version",
+          "cd ./src/lib/forks/angular-datetime-picker/projects/picker && npm version patch --no-git-tag-version",
+          "cd ./src/lib/forks/angular-datetime-picker && yarn build --configuration=production",
+          "cd ./src/lib/forks/angular-datetime-picker/dist/ && jq 'del(.files)' package.json > temp.json && mv temp.json ./package.json",
+          "cd ./src/lib/forks/angular-datetime-picker/dist/ && npm publish"
+        ],
+        "cwd": "libs/mdr",
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/mdr/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/mdr"
+      ],
+      "options": {
+        "jestConfig": "libs/mdr/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

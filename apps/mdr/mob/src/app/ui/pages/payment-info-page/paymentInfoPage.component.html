@@ -1,0 +1,50 @@
+<ion-header class="shadowless-header">
+  <ion-toolbar mode="md" color="l">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Payment Information </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="tw-mb-2">
+      <ng-container *ngIf="maskedCardNumber">
+        <div class="background-dg tw-w-full tw-h-20 tw-flex tw-rounded-r-xl tw-border">
+          <div class="tw-ml-4 tw-mr-4 tw-flex tw-items-center">
+            <ion-icon color="d" size="large" class="tw-drop-shadow-xl tw-rounded-full background-l tw-p-1.5" name="card"></ion-icon>
+          </div>
+          <div class="tw-flex tw-flex-col tw-justify-center">
+            <h3 class="tw-m-0">Bank Card</h3>
+            <p class="tw-text-xs text-ld tw-m-0">Ending {{ maskedCardNumber }}</p>
+          </div>
+          <div class="tw-flex tw-flex-col tw-justify-center tw-ml-auto tw-mr-4">
+            <p id="add-new-card-button" class="tw-text-xs text-ld tw-m-0 tw-font-medium">Change Card</p>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!maskedCardNumber">
+        <div id="add-new-card-button" class="background-dg tw-w-full tw-h-20 tw-flex tw-rounded-r-xl tw-border">
+          <div class="tw-ml-4 tw-mr-4 tw-flex tw-items-center">
+            <ion-icon color="d" size="large" class="tw-drop-shadow-xl tw-rounded-full background-l tw-p-1.5" name="add"></ion-icon>
+          </div>
+          <div class="tw-flex tw-flex-col tw-justify-center">
+            <h3 class="tw-m-0">Add a credit or debit card</h3>
+            <p class="tw-text-xs text-ld tw-m-0">We’ll send money to this card whenever you’re awarded delay repay compensation</p>
+          </div>
+        </div>
+      </ng-container>
+      <ion-modal trigger="add-new-card-button" [initialBreakpoint]="0.9" [breakpoints]="[0, 0.25, 0.5, 0.9]">
+        <ng-template>
+          <app-change-card-modal class="tw-h-full"></app-change-card-modal>
+        </ng-template>
+      </ion-modal>
+      <ion-modal trigger="add-new-card-link" [initialBreakpoint]="0.9" [breakpoints]="[0, 0.25, 0.5, 0.9]">
+        <ng-template>
+          <app-change-card-modal class="tw-h-full"></app-change-card-modal>
+        </ng-template>
+      </ion-modal>
+    </ion-row>
+  </ion-grid>
+</ion-content>

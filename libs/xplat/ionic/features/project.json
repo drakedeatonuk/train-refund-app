@@ -1,0 +1,29 @@
+{
+  "root": "libs/xplat/ionic/features",
+  "sourceRoot": "libs/xplat/ionic/features/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/xplat/ionic/features/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/xplat/ionic/features"
+      ],
+      "options": {
+        "jestConfig": "libs/xplat/ionic/features/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,5 @@
+<img [src]="src" [alt]="alt"
+  [class]="class" inViewport
+  (inViewportAction)="onAppear($event)"
+  [@appear]="startAnimation ? 'visible' : 'invisible'"
+  >

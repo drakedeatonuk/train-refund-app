@@ -1,0 +1,29 @@
+<app-header></app-header>
+
+  <router-outlet></router-outlet>
+
+<app-footer></app-footer>
+
+<a tabindex="0" class="layout-config-button" (click)="isVisible = true">
+    <i class="pi pi-cog"></i>
+</a>
+
+<p-sidebar [(visible)]="isVisible" position="right" class="layout-config" styleClass="p-sidebar-md">
+
+    <div class="config-title">Themes</div>
+
+    <div class="grid themes-grid">
+        <div class="col-6 sm:col-3">
+            <button class="p-link" (click)="changeTheme($event, 'soho-light', false)">
+                <img src="assets/images/soho-light.png" alt="Soho Light"/>
+            </button>
+            <span>Soho Light</span>
+        </div>
+        <div class="col-6 sm:col-3">
+            <button class="p-link" (click)="changeTheme($event, 'soho-dark', true)">
+            <img src="assets/images/soho-dark.png" alt="Soho Dark"/>
+            </button>
+            <span>Soho Dark</span>
+        </div>
+    </div>
+</p-sidebar>

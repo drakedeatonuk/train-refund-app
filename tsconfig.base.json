@@ -1,0 +1,36 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@multi/material-design": ["libs/material-design/src/index.ts"],
+      "@multi/mdr": ["libs/mdr/src/index.ts"],
+      "@multi/shared": ["libs/shared/src/index.ts"],
+      "@multi/xplat/core": ["libs/xplat/core/src/index.ts"],
+      "@multi/xplat/environments": ["libs/xplat/core/src/lib/environments/base/index.ts"],
+      "@multi/xplat/features": ["libs/xplat/features/src/index.ts"],
+      "@multi/xplat/ionic/core": ["libs/xplat/ionic/core/src/index.ts"],
+      "@multi/xplat/ionic/features": ["libs/xplat/ionic/features/src/index.ts"],
+      "@multi/xplat/utils": ["libs/xplat/utils/src/index.ts"],
+      "@multi/xplat/web/core": ["libs/xplat/web/core/src/index.ts"],
+      "@multi/xplat/web/features": ["libs/xplat/web/features/src/index.ts"],
+      "@nx-prisma/.prisma/main": ["node_modules/.prisma/main-client/index.d.ts"],
+      "@nx-prisma/prisma-clients": ["libs/prisma-clients/index.ts"],
+      "@nx-prisma/prisma-clients/*": ["libs/prisma-clients/*"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"],
+  "noImplicitAny": true
+}

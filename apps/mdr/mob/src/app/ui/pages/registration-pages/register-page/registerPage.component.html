@@ -1,0 +1,93 @@
+<ion-header class="shadowless-header">
+  <ion-toolbar mode="ios" color="l">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="logged-out"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="background-l">
+  <form [formGroup]="regForm" class="tw-h-full">
+    <ion-grid class="tw-h-full tw-flex tw-flex-col tw-justify-center">
+      <ion-row class="tw-mb-4 tw-flex tw-justify-center">
+        <img src="@multi/mdr/assets/logo/insignia.png" class="tw-w-20" />
+      </ion-row>
+
+      <ion-row class="tw-mb-4">
+        <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input id="login-email" type="email" formControlName="loginEmail"></ion-input>
+        </ion-item>
+        <div *ngIf="loginEmail?.touched && loginEmail?.invalid && loginEmail?.value?.length > 0" class="tw-mt-1">
+          <div *ngIf="loginEmail?.errors?.['email']">
+            <p class="tw-ml-4 text-r tw-text-xs">Please use a real email.</p>
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row class="tw-flex tw-flex-row tw-mb-4">
+        <div class="tw-w-6/12 tw-pr-1">
+          <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input id="full-name" type="text" formControlName="firstName"></ion-input>
+          </ion-item>
+        </div>
+        <div class="tw-w-6/12 tw-pl-1">
+          <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input id="full-name" type="text" formControlName="lastName"></ion-input>
+          </ion-item>
+        </div>
+        <div
+          *ngIf="
+            (firstName?.touched || lastName?.touched) &&
+            (firstName?.invalid || lastName?.invalid) &&
+            (firstName?.value?.length > 0 || lastName?.value?.length > 0)
+          "
+          class="tw-mt-1"
+        >
+          <div *ngIf="firstName?.errors?.['maxlength'] || lastName?.errors?.['maxlength']">
+            <p class="tw-ml-4 text-r tw-text-xs">Please enter a name less than 40 characters</p>
+          </div>
+          <div *ngIf="firstName?.errors?.['pattern'] || lastName?.errors?.['pattern']">
+            <p class="tw-ml-4 text-r tw-text-xs">Please enter a name with no numbers or special characters.</p>
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row class="tw-mb-4">
+        <ion-item lines="none" color="g" size="large" class="tw-w-full tw-rounded-lg rounded input-active-border-p">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input id="password" type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <div *ngIf="password?.touched && password?.invalid && password?.value?.length > 0" class="tw-mt-1">
+          <div *ngIf="password?.errors?.['minlength']">
+            <p class="tw-ml-4 text-r tw-text-xs">Your password must be over 6 characters.</p>
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row class="tw-flex tw-flex-row tw-flex-nowrap">
+        <ion-checkbox id="consent" color="p" class="tw-bg-p tw-w-10 tw-mr-2" formControlName="consent"></ion-checkbox>
+        <p class="text-d tw-text-xs">
+          Ticking this box confirms you agree to My Delay Repay's
+          <a href="https://mydelayrepay.notion.site/Terms-Conditions-24653853e8204094a574d0b7399816f4" class="tw-text-blue-600 tw-cursor-pointer">
+            Terms & Conditions
+          </a>
+          and
+          <a href="https://mydelayrepay.notion.site/Privacy-Policy-98e46036bf4d41f3bcf666484b9be2d4" class="tw-text-blue-600 tw-cursor-pointer">
+            Privacy Policy
+          </a> and consent to us acting as your legal delay repay compensation agent.
+        </p>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-button (click)="submit()" [disabled]="!regForm.valid" color="p" size="large" class="tw-w-full tw-rounded-lg tw-mt-4"
+          >Submit</ion-button
+        >
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

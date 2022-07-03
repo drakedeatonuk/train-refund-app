@@ -1,0 +1,24 @@
+<div
+  class="surface-card p-4 shadow-2 border-round w-full lg:w-6 tw-absolute tw-top-1/2 tw-left-0 tw-transform tw-translate-x-1/2 tw-translate-y-1/4"
+>
+  <div class="text-center mb-5">
+    <img src="assets/images/hyper.svg" alt="Image" height="50" class="mb-3 tw-inline-block" />
+    <div class="text-900 text-3xl font-medium">Register Below!</div>
+  </div>
+
+  <form [formGroup]="regForm" (ngSubmit)="submitReg()">
+    <label for="loginEmail" class="block text-900 font-medium mb-2 tw-mt-3">Email</label>
+    <input id="loginEmail" type="text" pInputText class="w-full" formControlName="loginEmail" />
+    <div *ngIf="loginEmail?.invalid && loginEmail?.value?.length > 0" class="alert alert-danger text-900 tw-mt-1">
+      <div *ngIf="loginEmail?.errors?.['email']">Must be a real email.</div>
+    </div>
+
+    <label for="password" class="block text-900 font-medium mb-2 tw-mt-3">Password</label>
+    <input id="password" type="password" pInputText class="w-full" formControlName="password" />
+    <div *ngIf="password?.invalid && password?.value?.length > 0" class="alert alert-danger text-900 tw-mt-1">
+      <div *ngIf="password?.errors?.['minlength']">Must be over 6 characters</div>
+    </div>
+
+    <button pButton pRipple label="Register" icon="pi pi-user" class="w-full tw-mt-6"></button>
+  </form>
+</div>
