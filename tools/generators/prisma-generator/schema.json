@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "$id": "prisma-generator",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Prisma project name",
+      "x-prompt": "Prisma project name:"
+    },
+    "provider": {
+      "type": "string",
+      "description": "Database Type",
+      "default": "postgresql"
+    },
+    "dbUser": {
+      "type": "string",
+      "description": "Username",
+      "x-prompt": "Postgres username:"
+    },
+    "dbPassword": {
+      "type": "string",
+      "description": "Password",
+      "x-prompt": "Postgres username password:"
+    },
+    "dbPort": {
+      "type": "string",
+      "description": "Port",
+      "x-prompt": "Postgres port:"
+    },
+    "dbDatabase": {
+      "type": "string",
+      "description": "Database",
+      "x-prompt": "Postgres database name:"
+    },
+    "dbSchema": {
+      "type": "string",
+      "description": "Database schema",
+      "x-prompt": "Postgres database schema:"
+    }
+  },
+  "required": ["name", "dbUser", "dbPassword", "dbPort", "dbDatabase", "dbSchema"]
+}
